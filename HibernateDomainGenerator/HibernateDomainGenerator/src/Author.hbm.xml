@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="com.mattiz.persistence.beans.Author" lazy="false" table="TB_AUTHORS" >
+        <id name="authorId" column="AUTHOR_ID" length="11" type="int" >
+        	<generator class="increment"></generator>
+        </id>
+        <set name="books" table="TB_AUTHORS_BOOKS" cascade="none" inverse="true">
+            <key column="AUTHOR_ID" />
+            <many-to-many column="ISBN_CODE"  class="com.mattiz.persistence.beans.Book" />
+        </set>
+        <property name="name" type="java.lang.String" column="AUTHOR_NAME" length="30" />
+    </class>
+</hibernate-mapping>

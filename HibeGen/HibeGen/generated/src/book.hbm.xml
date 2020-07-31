@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.mattiz.persistence.beans">
+	<class name="BookWithMultipleAuthors" table="Book"  lazy="false">
+		<id name="isbnCode" column="isbn_code" type="long">
+			<generator class="native" />
+		</id>
+		<property name="title" type="string" length="20" column="book_title" />
+		<set name="contributingAuthors" inverse="true"  lazy="false">
+			<key column="isbn_code_in_author" />
+			<one-to-many class="ContributingAuthor" />
+		</set>
+	</class>
+</hibernate-mapping>

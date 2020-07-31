@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="com.mattiz.persistence.beans.Book" table="TB_BOOKS" lazy="false">
+		<id name="isbn" column="ISBN_CODE" length="10" type="java.lang.String" >
+			<generator class="assigned"></generator>
+		</id>
+		<property name="title" type="java.lang.String" column="BOOK_TITLE" length="30" />
+	</class>
+</hibernate-mapping>
