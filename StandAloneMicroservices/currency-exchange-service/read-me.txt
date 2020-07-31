@@ -1,15 +1,7 @@
-copy over src, pom.xml to docker root
-
-PS C:\Users\user\redis-image\restful> docker build -t currency-exchange-service:latest .
-
-docker run -p 8080:8001 -t -i currency-exchange-service
-
 application:
-http://localhost:8001/currency-exchange/from/EUR/to/INR
-eureka server:
-http://localhost:8080/
-Output
+http://localhost:8080/currency-exchange/from/EUR/to/INR
 
+Output:
 <ExchangeValue>
 <from>USD</from>
 <to>INR</to>
@@ -17,8 +9,13 @@ Output
 <port>8080</port>
 <id>1001</id>
 </ExchangeValue>
+
 application:
 http://localhost:8100/currency-conversion/from/USD/to/INR/amount/500
-
-Output
+Output:
 {"from":"USD","to":"INR","exchangeValue":45.00,"amount":500,"calculatedAmount":22500.00,"port":8080,"id":1001}
+
+eureka server:
+http://localhost:8080/
+
+-Dserver.port=8100
