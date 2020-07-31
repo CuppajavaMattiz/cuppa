@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>de</supported-locale>
+			<supported-locale>fr</supported-locale>
+		</locale-config>
+	</application>
+	<!-- Managed Beans -->
+	<managed-bean>
+		<managed-bean-name>authorSearchCreate</managed-bean-name>
+		<managed-bean-class>
+			com.mattiz.web.managedbeans.AuthorSearchCreateBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceManager</property-name>
+			<value>#{serviceManager}</value>
+		</managed-property>
+	</managed-bean>
+	<!-- Managed Beans End-->
+	<!-- Navigation Rules -->
+	<navigation-rule>
+		<from-view-id>/mattizpages/authors.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>one</from-outcome>
+			<to-view-id>/mattizpages/pageOne.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>two</from-outcome>
+			<to-view-id>/mattizpages/pageTwo.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+</faces-config>
+

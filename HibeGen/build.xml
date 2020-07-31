@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="codegen">
+    <target name="codegen">
+        <path id="classpath_id">
+            <pathelement
+                location="I:/>packages/spring-framework-2.5.4-with-dependencies/spring-framework-2.5.4/lib/jakarta-commons/commons-collections.jar" />
+            <pathelement
+                location="I:/>packages/spring-framework-2.5.4-with-dependencies/spring-framework-2.5.4/lib/jakarta-commons/commons-logging.jar" />
+            <pathelement
+                location="I:/>packages/spring-framework-2.5.4-with-dependencies/spring-framework-2.5.4/lib/dom4j/dom4j-1.6.1.jar" />
+            <pathelement
+                location="I:/>packages/spring-framework-2.5.4-with-dependencies/spring-framework-2.5.4/lib/freemarker/freemarker.jar" />
+            <pathelement
+                location="I:/>packages/spring-framework-2.5.4-with-dependencies/spring-framework-2.5.4/lib/hibernate/hibernate3.jar" />
+            <pathelement
+                location="I:/>packages/spring-framework-2.5.4-with-dependencies/spring-framework-2.5.4/lib/log4j/log4j-1.2.15.jar" />
+            <pathelement
+                location="I:/>packages/spring-framework-2.5.4-with-dependencies/spring-framework-2.5.4/lib/hibernate/hibernate-annotations.jar" />
+            <pathelement location="I:/>packages/hibernate-tools.jar/hibernate-tools.jar" />
+            <pathelement location="I:/>packages/hsqldb-1_8_0_10.jar" />
+        </path>
+        <echo>Zippzip</echo>
+        <taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask">
+            <classpath refid="classpath_id" />
+        </taskdef>
+        <hibernatetool destdir="generated/src">
+            <configuration propertyfile="./hibernate.properties">
+                <fileset dir=".">
+                    <include name="generated/src/*.hbm.xml" />
+                </fileset>
+            </configuration>
+            <hbm2java />
+        </hibernatetool>
+    </target>
+</project>

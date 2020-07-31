@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>dbpool</jndi-name>
+    <connection-url>jdbc:mysql://localhost:3306/AUTHORS</connection-url>
+	<user-name>admin</user-name>
+    <password>admin</password>
+    <metadata>
+         <type-mapping>mySQL</type-mapping>
+    </metadata>
+  </local-tx-datasource>
+</datasources>

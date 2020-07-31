@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="com.mattiz.persistence.beans.Authors" table="AUTHORS" lazy="false">
+		<id name="isbn_Code" type="java.lang.String" column="ISBN_CODE" length="10"/>
+		<property name="author" type="java.lang.String" column="AUTHOR" length="50" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<project name="mattiz" default="deploy" basedir=".">
+	<!-- Grab the environment variables we need -->
+	<property environment="env" />
+	<property name="DEPLOY_LOC" value="${env.JBOSS_HOME}/server/default/deploy" />
+	<!-- Base Properties -->
+	<property name="src" value="src/server" />
+	<property name="build_root" value="build" />
+	<property name="build_dir" value="build/mattiz" />
+	<property name="conf_dir" value="conf" />
+	<property name="lib_dir" value="lib/third-party" />
+	<property name="web.dir" value="src/webpages" />
+	<property name="output.filename" value="${ant.project.name}.war" />
+	<property name="classes_dest" value="build/mattiz/WEB-INF/classes" />
+	<property name="output.project.jar" value="${ant.project.name}.jar" />
+	<!-- classpath containing ALL jars (for building) -->
+	<path id="build_classpath">
+		<pathelement path="${classpath}" />
+		<fileset dir="${lib_dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${classes_dest}" />
+	</path>
+	<!--
+	target: clean             
+	-->
+	<target name="clean" description="--> clean build">
+		<!-- kill the contents of build -->
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${build_root}" includes="**/*" />
+		</delete>
+	</target>
+	<!--
+	target: undeploy              
+	-->
+	<target name="undeploy" description="--> removes war from app server">
+		<delete file="${DEPLOY_LOC}/${output.filename}" />
+		<delete dir="${DEPLOY_LOC}/${output.filename}" />
+	</target>
+	<!-- 
+	target: deploy              
+	-->
+	<target name="deploy" depends="clean, package" description="--> deploys war to app server">
+		<copy file="${build_root}/${output.filename}" tofile="${DEPLOY_LOC}/${output.filename}" overwrite="true" />
+	</target>
+	<!--
+	target: package
+	Construct a war in the build dir
+    -->
+	<target name="package" depends="build">
+		<copy todir="${build_dir}">
+			<fileset dir="${web.dir}" />
+		</copy>
+		<!-- copy the deploy libs to lib -->
+		<copy overwrite="true" todir="${build_dir}/WEB-INF/lib">
+			<fileset dir="${lib_dir}" />
+		</copy>
+		<!-- copy the xmls to WEB-INF -->
+		<copy overwrite="true" todir="${build_dir}/WEB-INF">
+			<fileset dir="${conf_dir}/jbossWebRoot/WEB-INF" />
+		</copy>
+		<!-- copy the Hibernate mapping files to the classes tree-->
+		<copy overwrite="true" todir="${classes_dest}">
+			<fileset dir="src/server" excludes="**/*.java" />
+		</copy>
+		<!-- copy the spring files to META-INF -->
+		<copy overwrite="true" todir="${build_dir}/WEB-INF">
+			<fileset dir="${conf_dir}/spring" includes="*" />
+		</copy>
+		<!-- jar up the classes (and any config files in the class tree) -->
+		<jar destfile="${build_dir}/WEB-INF/lib/${output.project.jar}" basedir="${build_dir}/WEB-INF/classes" includes="**/*.class,**/*.xml" excludes="*.txt" />
+		<!-- delete the classes directory (because it's already in the jar in WEB-INF/lib -->
+		<delete dir="${build_dir}/WEB-INF/classes" />
+		<!-- make the war -->
+		<jar destfile="${build_root}/${output.filename}" basedir="${build_dir}" includes="**" excludes="**/.*" />
+	</target>
+	<!--
+	target: build
+	Build class files to the build dir (not to the src dir)
+	-->
+	<target name="build" description="builds project src">
+		<mkdir dir="${classes_dest}" />
+		<javac srcdir="src" destdir="${classes_dest}" classpathref="build_classpath" debug="yes" source="1.5" />
+	</target>
+</project>

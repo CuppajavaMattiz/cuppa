@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="Mattiz_Process_Flow">
+
+	<start-state name="Start">
+		<transition to="Created" name="Created"></transition>
+	</start-state>
+
+	<state name="Created">
+	<event type="node-enter">
+			<action class="com.mattiz.jbpm.handler.CounterHandler"
+				name="Counter Update">
+				<status>Created</status>
+			</action>
+			<action class="com.mattiz.jbpm.handler.StatusHandler"
+				name="Status Update">
+				<status>Created</status>
+			</action>
+		</event>
+		<transition to="Submitted" name="Submitted"></transition>
+	</state>
+
+	<state name="Submitted">
+		<event type="node-enter">
+			<action class="com.mattiz.jbpm.handler.CounterHandler"
+				name="Counter Update">
+				<status>Submitted</status>
+			</action>
+			<action class="com.mattiz.jbpm.handler.StatusHandler"
+				name="Status Update">
+				<status>Submitted</status>
+			</action>
+		</event>
+		<transition to="Approved" name="Approved"></transition>
+		<transition to="Rejected" name="Rejected"></transition>
+	</state>
+
+	<state name="Approved">
+		<event type="node-enter">
+			<action class="com.mattiz.jbpm.handler.CounterHandler"
+				name="Counter Update">
+				<status>Approved</status>
+			</action>
+			<action class="com.mattiz.jbpm.handler.StatusHandler"
+				name="Status Update">
+				<status>Approved</status>
+			</action>
+		</event>
+		<transition to="Cancelled" name="Cancelled"></transition>
+		<transition to="Rejected" name="Rejected"></transition>
+		<transition to="Archived" name="Archived"></transition>		
+	</state>
+
+	<state name="Rejected">
+		<event type="node-enter">
+			<action class="com.mattiz.jbpm.handler.CounterHandler"
+				name="Counter Update">
+				<status>Rejected</status>
+			</action>
+			<action class="com.mattiz.jbpm.handler.StatusHandler"
+				name="Status Update">
+				<status>Rejected</status>
+			</action>
+		</event>
+		<transition to="Archived" name="Archived"></transition>
+	</state>
+	
+	<state name="Cancelled">
+		<event type="node-enter">
+			<action class="com.mattiz.jbpm.handler.CounterHandler"
+				name="Counter Update">
+				<status>Cancelled</status>
+			</action>
+			<action class="com.mattiz.jbpm.handler.StatusHandler"
+				name="Status Update">
+				<status>Cancelled</status>
+			</action>
+		</event>
+		<transition to="Archived" name="Archived"></transition>
+	</state>
+
+	<end-state name="Archived">
+		<event type="node-enter">
+			<action class="com.mattiz.jbpm.handler.CounterHandler"
+				name="Counter Update">
+				<status>Archived</status>
+			</action>
+			<action class="com.mattiz.jbpm.handler.StatusHandler"
+				name="Status Update">
+				<status>Archived</status>
+			</action>
+		</event>
+	</end-state>
+
+</process-definition>

@@ -1,0 +1,28 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from MattizAxisServerImplService WSDL service -->
+
+  <service name="MattizAxisTest" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="urn:mattiz"/>
+      <parameter name="wsdlServiceElement" value="MattizAxisServerImplService"/>
+      <parameter name="wsdlServicePort" value="MattizAxisTest"/>
+      <parameter name="className" value="com.mattiz.axis.request.MattizAxisTestSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="MattizAxisServerImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="returnMessage" qname="operNS:returnMessage" xmlns:operNS="urn:mattiz" returnQName="returnMessageReturn" returnType="rtns:string" xmlns:rtns="http://schemas.xmlsoap.org/soap/encoding/" soapAction="" >
+        <parameter qname="person" type="tns:string" xmlns:tns="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </operation>
+      <parameter name="allowedMethods" value="returnMessage"/>
+
+  </service>
+</deployment>

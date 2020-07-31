@@ -1,0 +1,12 @@
+spring-framework-2.5.4\lib\c3p0
+spring-framework-2.5.4\lib\cglib
+spring-framework-2.5.4\lib\jakarta-commons
+spring-framework-2.5.4\lib\dom4j
+spring-framework-2.5.4\lib\hibernate
+spring-framework-2.5.4\dist
+spring-framework-2.5.4\lib\log4j
+
+
+jta.jar
+mysql driver
+

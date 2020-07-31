@@ -1,0 +1,23 @@
+<!-- not required as datasource is configured in spring-servlet.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>dbpool</jndi-name>
+    <connection-url>jdbc:mysql://localhost:3306/AUTHORS</connection-url>
+	<user-name>admin</user-name>
+    <password>admin</password>
+    <metadata>
+         <type-mapping>mySQL</type-mapping>
+    </metadata>
+  </local-tx-datasource>
+  <local-tx-datasource>
+	<jndi-name>oracledbpool</jndi-name>
+	<connection-url>jdbc:oracle:thin:@localhost:1521:mattiz</connection-url>
+	<driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+	<user-name>scott</user-name>
+	<password>tiger</password>
+	<metadata>
+		<type-mapping>Oracle</type-mapping>
+	</metadata>
+  </local-tx-datasource>
+</datasources>

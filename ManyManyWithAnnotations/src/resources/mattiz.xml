@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean
+        id="mattiz.hibernate.dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" >
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/pubs" />
+        <property name="user" value="root" />
+        <property name="password" value="admin" />
+    </bean>
+    <bean id="mattiz.pageSize" class="java.lang.Integer" >
+        <constructor-arg value="5000" >
+        </constructor-arg>
+    </bean>
+    <bean id="mattiz.hibernate.sessionfactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	    <property name="dataSource" ref="mattiz.hibernate.dataSource" />
+	    <property name="annotatedClasses">
+	       <list>
+	           <value>com.mattiz.persistence.beans.Author</value>
+	           <value>com.mattiz.persistence.beans.Book</value>     
+	       </list>
+	    </property>
+	   <property name="hibernateProperties">
+	        <props>
+	            <prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
+	            <prop key="hibernate.show_sql" >false</prop>
+	        </props>
+	    </property>
+	</bean>
+    <bean id="mattiz.transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager" >
+        <property name="sessionFactory" >
+            <ref bean="mattiz.hibernate.sessionfactory" />
+        </property>
+    </bean>
+    <bean id="mattiz.hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate" >
+        <property name="sessionFactory" >
+            <ref bean="mattiz.hibernate.sessionfactory" />
+        </property>
+    </bean>
+    <bean id="mattiz.dao.mattizDAO" class="com.mattiz.persistence.data.MattizDao" singleton="true" >
+        <property name="hibernateTemplate" >
+            <ref bean="mattiz.hibernateTemplate" />
+        </property>
+    </bean>
+    <bean id="mattiz.client" class="com.mattiz.web.managedbeans.MattizMain" singleton="true" >
+        <property name="mattizDelegate" ref="mattiz.service.delegate" />
+    </bean>
+    <bean id="mattiz.service.delegate" class="com.mattiz.service.spring.MattizDelegate" singleton="true" >
+        <property name="mattizDao" ref="mattiz.dao.mattizDAO" />
+    </bean>
+</beans>
