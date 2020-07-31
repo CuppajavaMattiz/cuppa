@@ -1,9 +1,15 @@
-application:
-http://localhost:8080/currency-exchange/from/EUR/to/INR
+copy over src, pom.xml to docker root, see changes in pom.xml for dockerized app
+
+docker build -t currency-exchange-service:latest .
+docker run -p 8080:8080 -t -i currency-exchange-service
+
+
 eureka server:
 http://localhost:8080/
-Output
 
+application:
+http://localhost:8080/currency-exchange/from/EUR/to/INR
+Output:
 <ExchangeValue>
 <from>USD</from>
 <to>INR</to>
@@ -11,6 +17,11 @@ Output
 <port>8080</port>
 <id>1001</id>
 </ExchangeValue>
+
+Currency conversion is not dockerized, run as a standalone to connect to currency-exchange-service
+
+-Dserver.port=8100
+
 application:
 http://localhost:8100/currency-conversion/from/USD/to/INR/amount/500
 

@@ -77,7 +77,7 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<build>
+	<build><!--changes to be made here for docker-->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
